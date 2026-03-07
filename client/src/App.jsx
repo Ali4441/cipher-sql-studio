@@ -1,28 +1,41 @@
 import "./App.css";
-import AssignmentsCard from "./componets/AssignmentsCard/AssignmentsCard";
-import axios from "axios";
-import { useEffect, useState } from "react";
+
+
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navbar from "./componets/Navbar/Navbar";
+import AssignmentList from "./pages/Home/AssignmentList";
+import AttemptPage from "./pages/Attempt/AttemptPage";
+import Switcher from './componets/switcher/Switcher'
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <div>
+        <Switcher />
+
+        <Navbar status='connected' Navigate='Sing in' />
+        <AssignmentList />
+      </div>
+    ),
+  },
+  {
+    path: "/Attempt/:id",
+    element: (
+      <div>
+        <Switcher />
+
+        <Navbar status='connected' Navigate='Assignments' />
+        <AttemptPage />
+      </div>
+    ),
+  },
+]);
 
 function App() {
-  const [assignments, setAssignments] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(`http://localhost:5000/api/assignments`)
-      .then((res) => {
-        setAssignments(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   return (
-    <>
-      <Navbar status="connected" Navigate="Sing in" />
-      <AssignmentsCard assignments={assignments} />
-    </>
+    <div>
+      <RouterProvider router={router} />
+    </div>
   );
 }
 

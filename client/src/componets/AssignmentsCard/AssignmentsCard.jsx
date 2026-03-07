@@ -1,12 +1,24 @@
 import React from "react";
 import "./AssignmentsCard.scss";
+import { useNavigate } from "react-router-dom";
+
 
 const AssignmentsCard = ({ assignments }) => {
+  const navigate = useNavigate();
+
+  const goToAttempt = (id) => {
+    navigate(`/Attempt/${id}`);
+
+  };
   return (
     <div className="cards">
 
       {assignments.map((item) => (
-        <div className="assignment-card" key={item.id}>
+        <div
+          className="assignment-card"
+          key={item.id}
+          onClick={() => goToAttempt(item.id)}
+        >
 
           <div className="card-header">
             <span className="card-id">#{item.id}</span>

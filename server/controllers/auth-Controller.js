@@ -9,6 +9,21 @@ const getAssignments = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+const getAssignmentById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await Pool.query(
+      "SELECT * FROM assignments WHERE id = $1",
+      [id]
+    );
+
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error" });
+  }
+};
 
 const getResult = async (req, res) => {
   const { query } = req.body;
@@ -22,4 +37,4 @@ const getResult = async (req, res) => {
   }
 };
 
-module.exports = { getAssignments, getResult };
+module.exports = { getAssignments, getResult, getAssignmentById };
