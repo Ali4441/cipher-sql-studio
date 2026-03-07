@@ -2,6 +2,7 @@ import "./App.css";
 import AssignmentsCard from "./componets/AssignmentsCard/AssignmentsCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Navbar from "./componets/Navbar/Navbar";
 
 function App() {
   const [assignments, setAssignments] = useState([]);
@@ -19,6 +20,7 @@ function App() {
 
   return (
     <>
+      <Navbar status="connected" Navigate="Sing in" />
       <AssignmentsCard assignments={assignments} />
     </>
   );
