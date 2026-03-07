@@ -1,11 +1,11 @@
 const express = require("express");
 const app = express();
-const PORT = 3000;
+const assignmentsRouter = require("./routes/assignments");
 
-app.use("/", (req, res) => {
-  res.status(200).json({ message: "this is root" });
-});
+app.use(express.json()); // JSON parsing middleware
 
-app.listen(PORT, () => {
-  console.log("server is conected PORT on", PORT);
-});
+// Routes
+app.use("/api", assignmentsRouter);
+
+const PORT = 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
