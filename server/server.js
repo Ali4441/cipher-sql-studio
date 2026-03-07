@@ -1,12 +1,27 @@
 const express = require("express");
-const app = express();
-const assignmentsRouter = require("./routes/assignments")
+const cors = require("cors");
 
-app.use(express.urlencoded({ extended: true }));
+const app = express();
+const assignmentsRouter = require("./routes/assignments");
+
+// Middleware
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.use("/api", assignmentsRouter);
 
 const PORT = 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+const startServer = async () => {
+  try {
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.log("Server failed to start", error);
+  }
+};
+
+startServer();
